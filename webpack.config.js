@@ -9,7 +9,8 @@ module.exports = (env, argv) => {
   const isDev = !isProd;
   console.log("isProd", isProd);
   console.log("isDev", isDev);
-  const filename = (ext) => isProd ? `[name].[contenthash].bandle.${ext}` : `[name].bandle.${ext}`;
+  const filename = (ext) =>
+    isProd ? `[name].[contenthash].bandle.${ext}` : `[name].bandle.${ext}`;
   const plugins = () => {
     const base = [
       new HtmlWebpackPlugin({
@@ -28,11 +29,13 @@ module.exports = (env, argv) => {
       }),
     ];
     if (isDev) {
-      base.push(new ESLintPlugin({
-        extensions: ['.js'],
-        overrideConfigFile: path.resolve(__dirname, "eslint.config.mjs"), // путь к конфигурации ESLint
-        configType: "flat"
-      }));
+      base.push(
+        new ESLintPlugin({
+          extensions: [".js"],
+          overrideConfigFile: path.resolve(__dirname, "eslint.config.mjs"), // путь к конфигурации ESLint
+          configType: "flat",
+        })
+      );
     }
     return base;
   };
