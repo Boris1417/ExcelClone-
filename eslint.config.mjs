@@ -30,6 +30,7 @@ export default [
       'semi': 'off',
       'comma-dangle': 'off',
       'require-jsdoc': 'off',
+      'no-unused-vars': 'off',
     },
   },
 ];
