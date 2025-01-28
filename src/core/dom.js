@@ -71,6 +71,12 @@ class Dom {
   css(styles = {}) {
     Object.keys(styles).forEach((key) => (this.$el.style[key] = styles[key]));
   }
+  getStyles (style = []){ 
+    return style.reduce((res,s)=> {
+      res[s] =this.$el.style[s]
+      return res
+    },{})
+  }
   focus() {
     this.$el.focus();
     return this;
