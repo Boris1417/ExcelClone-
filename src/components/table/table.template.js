@@ -1,5 +1,6 @@
 import { defaultStyles } from "../../constants";
-import { camelToDashCase } from "../../core/utils";
+import { toInlineStyles } from "../../core/utils";
+import { parse } from "../../core/parse";
 
 const CODES = {
   A: 65,
@@ -25,16 +26,18 @@ function toCell(state, row) {
     const width = getWidth(state.colState, col);
     const id = `${row}:${col}`;
     const data = state.dataState[id] || "";
-    const styles = Object.keys(defaultStyles)
-      .map((key) => `${camelToDashCase(key)}:${defaultStyles[key]}`)
-      .join(";");
+    const styles = toInlineStyles({
+      ...defaultStyles,
+      ...state.stylesState[id],
+    });
     return `
       <div class="cell" contenteditable="true" 
       data-col = "${col}" 
       data-type = "cell"
       data-id="${row}:${col}"
+      data-value= "${data || ""}"
       style="${styles}; width: ${width}">
-      ${data}
+      ${parse(data)|| ""}
       </div>
   `;
   };
@@ -80,7 +83,6 @@ function withWidthFrom(state) {
   };
 }
 export function createTable(rowsCount = 15, state = {}) {
-  console.log(state);
   const colsCount = CODES.Z - CODES.A + 1;
   const rows = [];
 
