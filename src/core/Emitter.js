@@ -1,6 +1,6 @@
 export class Emitter {
   constructor() {
-    this.listeners = {};
+    this.listeners = [];
     
   }
   emit(event, ...args) {
